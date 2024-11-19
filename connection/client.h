@@ -24,11 +24,7 @@ public:
     bool Modifier(QString,QString,QString ,QString,int);
     void rechercher(const QString &a, QTableView *g);
     QSqlQueryModel* trierclient(const QString& critere);
-    bool exporterPDF();
-    int calculerPoints(QString IDENTIFIANT);
-    bool remise(QString);
 
-    //QString genererStatistiquesPoints() ;
 private:
     int TELEPHONE;
     QString IDENTIFIANT,NOM,PRENOM,EMAIL;

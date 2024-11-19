@@ -1,10 +1,4 @@
-
-
-QT += sql
-QT += printsupport
-QT += network
-
-
+QT       += core gui sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -17,16 +11,12 @@ SOURCES += \
     client.cpp \
     connection.cpp \
     main.cpp \
-    mainwindow.cpp \
-    smtp.cpp \
-    statwidget.cpp
+    mainwindow.cpp
 
 HEADERS += \
     client.h \
     connection.h \
-    mainwindow.h \
-    smtp.h \
-    statwidget.h
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui

@@ -1,27 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 #include "client.h"
 #include"QSortFilterProxyModel"
-#include "connection.h"
 #include <QGroupBox>
-#include <QMessageBox>
-#include <QSqlQuery>
-#include<QIntValidator>
-#include <QtPrintSupport/QPrinter>
-//#include <QPrinter>
-#include <QPainter>
-//#include <QPrintDialog>
-#include <QtDebug>
-#include <QPdfWriter>
-#include <QTextStream>
-#include<QTextDocument>
-//#include <QAbstractSocket>
-#include"QSortFilterProxyModel"
-#include "smtp.h"
-#include "StatWidget.h"
-#include <QScreen>
-#include <QGuiApplication>
-
+#include "connection.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -32,11 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBox->addItem("PRENOM");
     ui->comboBox->addItem("TELEPHONE");
 
-     // Connecter le QComboBox au slot pour gérer le tri
+        // Connecter le QComboBox au slot pour gérer le tri
     connect(ui->comboBox, &QComboBox::currentIndexChanged, this, &MainWindow::on_comboBox_currentIndexChanged);
-
-    connect(ui->exporterPDFButtont, &QPushButton::clicked, this, &MainWindow::on_exporterPDFButtont_clicked);
-
     QRegularExpression regexTelephone("^\\d{8}$");  // Regex pour 8 chiffres uniquement
     ui->line_tel->setValidator(new QRegularExpressionValidator(regexTelephone, this));
 
@@ -62,15 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ui->tab_client->setModel(C.afficher());
     connect(ui->line_recherche, &QLineEdit::textChanged, this, &MainWindow::on_line_recherche_textChanged);
-
-    connect(ui->pushButtonSend, SIGNAL(clicked()),this, SLOT(sendMail()));
-     connect(ui->pushButtonClear, SIGNAL(clicked()),this, SLOT(close()));
-
-
-     socket=new QTcpSocket(this);
-
-    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-     connect(socket, SIGNAL(connected()), this, SLOT(connected()));
 
 
 }
@@ -299,217 +270,4 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
         // Afficher le résultat du tri dans la vue
         ui->tab_client->setModel(model);
 }
-
-
-void MainWindow::on_exporterPDFButtont_clicked()
-{
-    client c;
-        if (c.exporterPDF()) {
-            QMessageBox::information(this, "Exportation PDF", "Le fichier PDF a été créé avec succès.");
-        } else {
-            QMessageBox::warning(this, "Erreur", "Impossible de créer le fichier PDF.");
-        }
-}
-
-
-
-
-void MainWindow::on_pushButton_8_clicked()
-{
-    QString id;
-    id=ui->idforpoints->text();
-    int aux=C.calculerPoints(id);
-    ui->tab_client->setModel(C.afficher());
-    QString s = QString::number(aux);
-}
-
-
-
-/*void MainWindow::on_push_stat_clicked()
-{
-
-    client C;
-        try{
-            QT_CHARTS_USE_NAMESPACE
-            QChart *chart = new QChart();
-            QBarSeries *series = new QBarSeries();
-            QBarCategoryAxis *axis = new QBarCategoryAxis();
-
-            QBarSet *set = new QBarSet(" Point de fidelite");
-            QStringList typesList;
-            QList<QBarSet *> nbrList;
-            std::map<QString , int> list = C.statNbrPerType();
-            for(auto itr = list.begin() ; itr != list.end(); itr++) {
-                typesList.append(itr->first);
-    //            nbrList.append(itr->second);
-                *set << itr->second;
-                nbrList.append(set);
-            }
-            qDebug() << typesList;
-            series->append(set);
-            chart->addSeries(series);
-            chart->setAnimationOptions(QChart::AllAnimations);
-            axis->append(typesList);
-            chart->createDefaultAxes();
-            chart->setAxisX(axis, series);
-            chart->legend()->setAlignment(Qt::AlignBottom);
-            QChartView *chartView = new QChartView(chart);
-            chartView->setRenderHint(QPainter::Antialiasing);
-            QPalette pal = qApp->palette();
-            pal.setColor(QPalette::Window, QRgb(0x0d4261));
-            pal.setColor(QPalette::WindowText, QRgb(0x95212c));
-            qApp->setPalette(pal);
-            QFont font;
-            font.setPixelSize(40);
-            chart->setTitleFont(font);
-            chart->setTitleBrush(QBrush(Qt::red));
-            chart->setTitle("statistique Point fidelite PER CIN");
-            chartView->setChart(chart);
-            chartView->showNormal();
-
-
-
-        }catch(...){
-
-}
-
-}
-*/
-
-
-void MainWindow::on_remise_clicked()
-{
-    QString id;
-
-            id=ui->idforpoints->text();
-            int aux=C.calculerPoints(id);
-            aux=aux*10;
-             QString s = QString::number(aux);
-
-
-            bool test=C.remise(id);
-
-            if(test){
-                QMessageBox::information(nullptr, QObject::tr("database is open"),
-                            QObject::tr("remise successful.\n"
-                                        "Click Cancel to exit."), QMessageBox::Cancel);
-
-
-            }
-            else
-
-            {
-
-                QMessageBox::information(nullptr, QObject::tr("database is open"),
-                            QObject::tr("remise failed.\n"
-                                        "Click Cancel to exit."), QMessageBox::Cancel);
-
-
-            }
-            ui->tab_client->setModel(C.afficher());
-
-}
-
-void MainWindow::sendMail()
-{
-    smtp* smtpClient = new smtp(ui->lineEditEmailCredentials->text(), ui->lineEditPasswordCredentials->text(), ui->lineEditHost->text(), ui->lineEditPort->text().toInt());
-    connect(smtpClient, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
-
-
-    if( !files.isEmpty() )
-        smtpClient->sendMail(ui->lineEditEmailCredentials->text(), ui->lineEditEmailTo->text() , ui->lineEditSubject->text(),ui->lineEdit->text(), files );
-    else
-        smtpClient->sendMail(ui->lineEditEmailCredentials->text(), ui->lineEditEmailTo->text() , ui->lineEditSubject->text(),ui->lineEdit->text());
-}
-
-
-void MainWindow::mailSent(QString status)
-{
-    if(status == "Message sent")
-        QMessageBox::warning( 0, tr( "Qt Simple SMTP client" ), tr( "Message sent!\n\n" ) );
-}
-
-void MainWindow::readyRead() {
-    qDebug() << "Données prêtes à être lues.";
-}
-
-void MainWindow::connected() {
-    qDebug() << "Connecté au serveur.";
-}
-
-
-
-void MainWindow::on_push_stat_clicked()
-{
-    QMap<QString, int> stats;
-
-    // Initialiser les tranches spécifiques
-    stats["0"] = 0;
-    stats["1-10"] = 0;
-    stats["11-20"] = 0;
-    stats["21-30"] = 0;
-    stats["31-40"] = 0;
-    stats["41-50"] = 0;
-
-
-    QSqlQuery query("SELECT pointsf FROM client");
-    while (query.next()) {
-        int points = query.value(0).toInt();
-
-        if (points == 0) { // Points égaux à 0
-            stats["0"]++;
-        } else if (points <= 10) { // Points entre 1 et 25
-            stats["1-10"]++;
-        } else if (points <= 20) { // Points entre 26 et 50
-            stats["11-20"]++;
-        } else if (points <= 30) { // Points entre 51 et 75
-            stats["21-30"]++;
-        } else if (points <= 40) { // Points entre 76 et 100
-            stats["31-40"]++;
-        }
-        else if (points <= 50) { // Points entre 76 et 100
-                    stats["41-50"]++;
-                }
-    }
-
-    // Vérifier si aucune donnée n'existe pour toutes les tranches
-    bool hasData = false;
-    for (int value : stats.values()) {
-        if (value > 0) {
-            hasData = true;
-            break;
-        }
-    }
-    if (!hasData) {
-        QMessageBox::warning(this, "Statistiques", "Aucune donnée à afficher !");
-        return;
-    }
-
-    // Créer la fenêtre et afficher les statistiques
-    QDialog *statWindow = new QDialog(this);
-    StatWidget *statWidget = new StatWidget(statWindow);
-    statWidget->setStatistics(stats);
-
-    statWindow->setWindowTitle("Statistiques des points (détails)");
-    statWindow->resize(400, 400); // Taille augmentée
-
-    // Ajuster le widget à la taille de la fenêtre
-    statWidget->setGeometry(0, 0, statWindow->width(), statWindow->height());
-
-    // Centrer la fenêtre avec QScreen
-    QScreen *screen = QGuiApplication::primaryScreen();
-    if (screen) {
-        QRect screenGeometry = screen->geometry();
-        QPoint center = screenGeometry.center();
-        statWindow->move(center.x() - statWindow->width() / 2, center.y() - statWindow->height() / 2);
-    }
-
-    statWindow->show();
-}
-
-
-
-
-
-
 
