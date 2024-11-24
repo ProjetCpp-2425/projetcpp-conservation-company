@@ -11,7 +11,25 @@
 #include <QSqlError>
 #include <QMessageBox>
 #include <QDate>
-
+#include <QScreen>
+#include "statestiques.h"
+#include <QScreen>
+#include <QGuiApplication>
+#include <QMessageBox>
+#include <QDialog>
+#include <QVBoxLayout>
+#include <QSqlQuery>
+#include <QScreen>
+#include <QGuiApplication>
+#include <QMessageBox>
+#include <QDialog>
+#include <QSqlQuery>
+#include "mainwindow.h"
+#include <QMessageBox>
+#include <QSqlQuery>
+#include <QVBoxLayout>
+#include "statestiques.h"
+#include "connection.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -419,10 +437,93 @@ void MainWindow::on_triButton_clicked()
 }
 
 
+// Assurez-vous d'inclure le bon fichier pour `StatWidget`
+
+ // Inclure votre classe pour le graphique
+
+void MainWindow::on_stat_clicked()
+{
+    // Create connection instance
+    Connection c;
+
+    QMap<QString, int> stats;
+    // Initialize ranges
+    stats["0-10"] = 0;
+    stats["11-20"] = 0;
+    stats["21-30"] = 0;
+    stats["31-40"] = 0;
+    stats["41+"] = 0;
+
+    // Create and execute query
+    QSqlQuery query;
+    if (!query.exec("SELECT QUANTITE FROM PRODUITS")) {
+        QMessageBox::critical(this, "Erreur",
+                            "Impossible d'exécuter la requête : " + query.lastError().text());
+        return;
+    }
+
+    // Fill statistics
+    while (query.next()) {
+        int quantite = query.value(0).toInt();
+        if (quantite <= 10) {
+            stats["0-10"]++;
+        } else if (quantite <= 20) {
+            stats["11-20"]++;
+        } else if (quantite <= 30) {
+            stats["21-30"]++;
+        } else if (quantite <= 40) {
+            stats["31-40"]++;
+        } else {
+            stats["41+"]++;
+        }
+    }
+
+    // Check if there's data
+    bool hasData = false;
+    for (int value : stats.values()) {
+        if (value > 0) {
+            hasData = true;
+            break;
+        }
+    }
+
+    if (!hasData) {
+        QMessageBox::warning(this, "Statistiques", "Aucune donnée à afficher !");
+        return;
+    }
+
+    // Create statistics window
+    QDialog *statWindow = new QDialog(this);
+    statWindow->setWindowTitle("Statistiques des produits");
+    statWindow->resize(600, 500);  // Increased height for better visibility
+
+    QVBoxLayout *layout = new QVBoxLayout(statWindow);
+    StatWidget *statWidget = new StatWidget(statWindow);
+    statWidget->setStatistics(stats);
+    layout->addWidget(statWidget);
+
+    // Center the window
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (screen) {
+        QRect screenGeometry = screen->geometry();
+        statWindow->move(
+            screenGeometry.center() - statWindow->rect().center()
+        );
+    }
+
+    statWindow->exec();
+    delete statWindow;
+}
+
+
+
+
+
 MainWindow::~MainWindow()
 {
     // Libérer la mémoire utilisée par l'interface utilisateur
     delete ui;
 }
+
 
 

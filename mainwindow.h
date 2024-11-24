@@ -8,7 +8,8 @@
 #include <QUrlQuery>
 #include <QSqlDatabase>
 #include <QPushButton>
-
+#include <statestiques.h>
+#include "connection.h"
 
 
 QT_BEGIN_NAMESPACE

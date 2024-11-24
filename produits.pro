@@ -1,6 +1,5 @@
-
 QT += core gui widgets sql
-QT += sql
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -13,12 +12,14 @@ SOURCES += \
     connection.cpp \
     main.cpp \
     mainwindow.cpp \
-    produit.cpp
+    produit.cpp \
+    statestiques.cpp
 
 HEADERS += \
     connection.h \
     mainwindow.h \
-    produit.h
+    produit.h \
+    statestiques.h
 
 FORMS += \
     mainwindow.ui
@@ -27,4 +28,3 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-

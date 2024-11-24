@@ -475,6 +475,19 @@ color: rgb(216, 216, 216);</string>
       <string notr="true">background-color: rgb(51, 153, 119);</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="stat">
+     <property name="geometry">
+      <rect>
+       <x>950</x>
+       <y>120</y>
+       <width>83</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>statestiques </string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
