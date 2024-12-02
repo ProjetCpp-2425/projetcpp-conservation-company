@@ -3,9 +3,6 @@
 #include<QString>
 #include <QSqlQueryModel>//utilisé pour récupérer et afficher les données de la base.
 #include<QTableView>//utilisé pour afficher les données sous forme de tableau.
-#include <QtSerialPort/QSerialPort>
-#include <QtSerialPort/QSerialPortInfo>
-
 class client
 {
 public:
@@ -27,11 +24,7 @@ public:
     bool Modifier(QString,QString,QString ,QString,int);
     void rechercher(const QString &a, QTableView *g);
     QSqlQueryModel* trierclient(const QString& critere);
-    bool exporterPDF();
-    int calculerPoints(QString IDENTIFIANT);
-    bool remise(QString);
 
-    //QString genererStatistiquesPoints() ;
 private:
     int TELEPHONE;
     QString IDENTIFIANT,NOM,PRENOM,EMAIL;

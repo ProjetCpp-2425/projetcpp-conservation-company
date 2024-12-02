@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 7.0.0, 2024-12-01T21:52:08. -->
+<!-- Written by QtCreator 7.0.0, 2024-11-11T18:44:15. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -85,9 +85,6 @@
     <valuelist type="QVariantList" key="ClangTools.SuppressedDiagnostics"/>
     <value type="bool" key="ClangTools.UseGlobalSettings">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="CppEditor.QuickFix">
-    <value type="bool" key="UseGlobalSettings">true</value>
-   </valuemap>
   </valuemap>
  </data>
  <data>
@@ -139,7 +136,6 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Debug</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4BuildConfiguration</value>
     <value type="int" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration">2</value>
-    <value type="int" key="RunSystemFunction">1</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\Tayma Store\Desktop\2A32\projet\build-gestionc-Desktop_Qt_6_3_0_MinGW_64_bit-Release</value>

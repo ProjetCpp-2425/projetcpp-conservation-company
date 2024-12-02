@@ -434,7 +434,7 @@ background-color: rgb(231, 255, 243);</string>
       </property>
      </widget>
     </widget>
-    <widget class="QPushButton" name="exporterPDFButtont">
+    <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
       <rect>
        <x>540</x>
@@ -511,10 +511,10 @@ alternate-background-color: rgb(85, 255, 127);</string>
     <widget class="QGroupBox" name="groupBox_7">
      <property name="geometry">
       <rect>
-       <x>730</x>
+       <x>740</x>
        <y>160</y>
-       <width>411</width>
-       <height>131</height>
+       <width>401</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -550,111 +550,12 @@ font: 8pt &quot;Baloo&quot;;
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>181</width>
+        <width>321</width>
         <height>21</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">background:rgb(255, 255, 255);</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditPasswordCredentials">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>40</y>
-        <width>161</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:rgb(255, 255, 255);</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="echoMode">
-       <enum>QLineEdit::Password</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_27">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>20</y>
-        <width>71</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(177, 216, 183);</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt; font-weight:700; font-style:italic; text-decoration: underline; color:#ffffff;&quot;&gt;password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditPort">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>90</y>
-        <width>161</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:rgb(255, 255, 255);</string>
-      </property>
-      <property name="text">
-       <string>465</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_23">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>70</y>
-        <width>56</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(177, 216, 183);</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-size:7pt; font-weight:700; font-style:italic; text-decoration: underline; color:#ffffff;&quot;&gt;Host&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_22">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>70</y>
-        <width>56</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(177, 216, 183);</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:7pt; font-weight:700; font-style:italic; text-decoration: underline; color:#ffffff;&quot;&gt;Port&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditHost">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>90</y>
-        <width>181</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background:rgb(255, 255, 255);</string>
-      </property>
-      <property name="text">
-       <string>smtp.gmail.com</string>
       </property>
      </widget>
     </widget>
@@ -677,7 +578,7 @@ font: 8pt &quot;Baloo&quot;;
     <widget class="QLabel" name="label_17">
      <property name="geometry">
       <rect>
-       <x>730</x>
+       <x>750</x>
        <y>130</y>
        <width>181</width>
        <height>31</height>
@@ -690,12 +591,35 @@ font: 8pt &quot;Baloo&quot;;
       <string>Réclamation:</string>
      </property>
     </widget>
+    <widget class="Line" name="line_2">
+     <property name="geometry">
+      <rect>
+       <x>720</x>
+       <y>130</y>
+       <width>20</width>
+       <height>311</height>
+      </rect>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>20</width>
+       <height>411</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 900 9pt &quot;Segoe UI Black&quot;;
+font: 700 9pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
     <widget class="QGroupBox" name="groupBox_8">
      <property name="geometry">
       <rect>
-       <x>730</x>
-       <y>280</y>
-       <width>391</width>
+       <x>740</x>
+       <y>220</y>
+       <width>381</width>
        <height>71</height>
       </rect>
      </property>
@@ -743,9 +667,9 @@ background-color: rgb(177, 216, 183);
     <widget class="QGroupBox" name="groupBox_9">
      <property name="geometry">
       <rect>
-       <x>730</x>
-       <y>340</y>
-       <width>441</width>
+       <x>740</x>
+       <y>290</y>
+       <width>431</width>
        <height>141</height>
       </rect>
      </property>
@@ -805,7 +729,7 @@ background-color: rgb(177, 216, 183);
        <string notr="true">background:rgb(255, 255, 255);</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="lineEdit_8">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -817,14 +741,11 @@ background-color: rgb(177, 216, 183);
       <property name="styleSheet">
        <string notr="true">background:rgb(255, 255, 255);</string>
       </property>
-      <property name="text">
-       <string/>
-      </property>
      </widget>
-     <widget class="QPushButton" name="pushButtonSend">
+     <widget class="QPushButton" name="pushButton_6">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>140</x>
         <y>120</y>
         <width>71</width>
         <height>21</height>
@@ -836,23 +757,6 @@ alternate-background-color: rgb(85, 255, 127);</string>
       </property>
       <property name="text">
        <string>Envoyer</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButtonClear">
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>120</y>
-        <width>71</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 8pt &quot;Baloo&quot;;
-alternate-background-color: rgb(85, 255, 127);</string>
-      </property>
-      <property name="text">
-       <string>Annuler</string>
       </property>
      </widget>
     </widget>
@@ -908,8 +812,8 @@ background-color: rgb(231, 255, 243);</string>
     <widget class="QLabel" name="label_28">
      <property name="geometry">
       <rect>
-       <x>890</x>
-       <y>480</y>
+       <x>880</x>
+       <y>440</y>
        <width>91</width>
        <height>61</height>
       </rect>
@@ -925,7 +829,7 @@ background-color: rgb(231, 255, 243);</string>
      <property name="geometry">
       <rect>
        <x>770</x>
-       <y>560</y>
+       <y>540</y>
        <width>151</width>
        <height>21</height>
       </rect>
@@ -937,7 +841,7 @@ background-color: rgb(231, 255, 243);</string>
       <string>Calculer Les points</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_sup_2">
+    <widget class="QLineEdit" name="lineEdit_7">
      <property name="geometry">
       <rect>
        <x>610</x>
@@ -958,20 +862,20 @@ background-color: rgb(231, 255, 243);</string>
      <property name="geometry">
       <rect>
        <x>730</x>
-       <y>480</y>
+       <y>430</y>
        <width>371</width>
-       <height>16</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QPushButton" name="remise">
+    <widget class="QPushButton" name="pushButton_9">
      <property name="geometry">
       <rect>
-       <x>970</x>
-       <y>560</y>
+       <x>960</x>
+       <y>540</y>
        <width>121</width>
        <height>21</height>
       </rect>
@@ -983,13 +887,13 @@ background-color: rgb(231, 255, 243);</string>
       <string>Reduction</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="idforpoints">
+    <widget class="QLineEdit" name="lineEdit_9">
      <property name="geometry">
       <rect>
-       <x>800</x>
-       <y>520</y>
+       <x>780</x>
+       <y>490</y>
        <width>281</width>
-       <height>31</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1022,46 +926,9 @@ background-color: rgb(231, 255, 243);</string>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="push_stat">
-     <property name="geometry">
-      <rect>
-       <x>360</x>
-       <y>410</y>
-       <width>93</width>
-       <height>29</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Statistique</string>
-     </property>
-    </widget>
-    <widget class="Line" name="line_2">
-     <property name="geometry">
-      <rect>
-       <x>716</x>
-       <y>120</y>
-       <width>20</width>
-       <height>371</height>
-      </rect>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>20</width>
-       <height>411</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: 900 9pt &quot;Segoe UI Black&quot;;
-font: 700 9pt &quot;Segoe UI&quot;;</string>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-    </widget>
-    <zorder>line_2</zorder>
     <zorder>groupBox_3</zorder>
     <zorder>label_11</zorder>
-    <zorder>exporterPDFButtont</zorder>
+    <zorder>pushButton_3</zorder>
     <zorder>label_10</zorder>
     <zorder>label</zorder>
     <zorder>label_29</zorder>
@@ -1070,19 +937,19 @@ font: 700 9pt &quot;Segoe UI&quot;;</string>
     <zorder>groupBox_7</zorder>
     <zorder>groupBox_8</zorder>
     <zorder>groupBox_9</zorder>
+    <zorder>line_2</zorder>
     <zorder>Gbox</zorder>
     <zorder>pushButton_sup</zorder>
     <zorder>line_recherche</zorder>
     <zorder>label_12</zorder>
     <zorder>label_28</zorder>
     <zorder>pushButton_8</zorder>
-    <zorder>lineEdit_sup_2</zorder>
+    <zorder>lineEdit_7</zorder>
     <zorder>line</zorder>
-    <zorder>remise</zorder>
-    <zorder>idforpoints</zorder>
+    <zorder>pushButton_9</zorder>
+    <zorder>lineEdit_9</zorder>
     <zorder>label_16</zorder>
     <zorder>comboBox</zorder>
-    <zorder>push_stat</zorder>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
