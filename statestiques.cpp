@@ -23,11 +23,11 @@ void StatWidget::paintEvent(QPaintEvent *event) {
 
     // Define colors for the pie chart
     QVector<QColor> colors = {
-        QColor(255, 99, 132),   // Red
-        QColor(54, 162, 235),   // Blue
-        QColor(255, 206, 86),   // Yellow
-        QColor(75, 192, 192),   // Teal
-        QColor(153, 102, 255)   // Purple
+        QColor(0, 102, 51),      // Vert le plus foncé (#006633)
+        QColor(0, 153, 76),      // Vert foncé (#00994C)
+        QColor(0, 204, 102),     // Vert moyen (#00CC66)
+        QColor(51, 204, 51),     // Vert clair (#33CC33)
+        QColor(102, 255, 102)    // Vert le plus clair (#66FF66)
     };
 
     // Calculate total

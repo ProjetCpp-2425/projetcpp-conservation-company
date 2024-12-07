@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1305</width>
-    <height>736</height>
+    <width>1390</width>
+    <height>871</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>0</y>
+      <y>-10</y>
       <width>1081</width>
       <height>701</height>
      </rect>
@@ -33,7 +33,7 @@ background-color: rgb(237, 255, 239);</string>
        <x>0</x>
        <y>0</y>
        <width>271</width>
-       <height>691</height>
+       <height>701</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -44,7 +44,7 @@ background-color: rgb(188, 229, 203);</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-10</y>
         <width>271</width>
         <height>61</height>
        </rect>
@@ -101,6 +101,7 @@ color: rgb(21, 21, 21);
       <property name="styleSheet">
        <string notr="true">font: 700 9pt &quot;Segoe UI&quot;;
 font: 700 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
@@ -119,6 +120,7 @@ font: 700 12pt &quot;Segoe UI&quot;;
       <property name="styleSheet">
        <string notr="true">font: 700 9pt &quot;Segoe UI&quot;;
 font: 700 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
@@ -137,7 +139,7 @@ font: 700 12pt &quot;Segoe UI&quot;;
       <property name="styleSheet">
        <string notr="true">font: 700 9pt &quot;Segoe UI&quot;;
 font: 700 12pt &quot;Segoe UI&quot;;
-</string>
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>quantités du produit</string>
@@ -155,6 +157,7 @@ font: 700 12pt &quot;Segoe UI&quot;;
       <property name="styleSheet">
        <string notr="true">font: 700 9pt &quot;Segoe UI&quot;;
 font: 700 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
 </string>
       </property>
       <property name="text">
@@ -173,7 +176,7 @@ font: 700 12pt &quot;Segoe UI&quot;;
       <property name="styleSheet">
        <string notr="true">font: 700 9pt &quot;Segoe UI&quot;;
 font: 700 12pt &quot;Segoe UI&quot;;
-</string>
+color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>code-barres</string>
@@ -214,6 +217,9 @@ font: 700 12pt &quot;Segoe UI&quot;;
         <height>29</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);</string>
+      </property>
       <property name="text">
        <string>ajouter</string>
       </property>
@@ -226,6 +232,9 @@ font: 700 12pt &quot;Segoe UI&quot;;
         <width>93</width>
         <height>29</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>annuler</string>
@@ -240,6 +249,9 @@ font: 700 12pt &quot;Segoe UI&quot;;
         <height>29</height>
        </rect>
       </property>
+      <property name="maximum">
+       <number>1000000000</number>
+      </property>
      </widget>
      <widget class="QDateEdit" name="lineEdit_date">
       <property name="geometry">
@@ -249,6 +261,38 @@ font: 700 12pt &quot;Segoe UI&quot;;
         <width>161</width>
         <height>29</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_button">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>610</y>
+        <width>91</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>Modifier</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="stat">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>610</y>
+        <width>91</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>statestiques </string>
       </property>
      </widget>
     </widget>
@@ -263,6 +307,9 @@ font: 700 12pt &quot;Segoe UI&quot;;
      </property>
      <property name="styleSheet">
       <string notr="true">font: 700 12pt &quot;Segoe UI&quot;;
+
+color: rgb(0, 0, 0);
+
 </string>
      </property>
      <property name="text">
@@ -280,7 +327,8 @@ font: 700 12pt &quot;Segoe UI&quot;;
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(216, 216, 216);</string>
+color: rgb(216, 216, 216);
+color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">
       <string>Nom</string>
@@ -294,6 +342,9 @@ color: rgb(216, 216, 216);</string>
        <width>93</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">
       <string>valider</string>
@@ -310,6 +361,7 @@ color: rgb(216, 216, 216);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 700 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
 </string>
      </property>
      <property name="text">
@@ -327,6 +379,7 @@ color: rgb(216, 216, 216);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 700 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
 </string>
      </property>
      <property name="text">
@@ -344,7 +397,8 @@ color: rgb(216, 216, 216);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(216, 216, 216);</string>
+color: rgb(216, 216, 216);
+color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">
       <string>code_barres</string>
@@ -358,6 +412,9 @@ color: rgb(216, 216, 216);</string>
        <width>93</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">
       <string>valider</string>
@@ -374,6 +431,8 @@ color: rgb(216, 216, 216);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">font: 700 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);
+
 </string>
      </property>
      <property name="text">
@@ -389,6 +448,9 @@ color: rgb(216, 216, 216);</string>
        <height>29</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
      <property name="text">
       <string>valider</string>
      </property>
@@ -402,6 +464,9 @@ color: rgb(216, 216, 216);</string>
        <height>29</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
      <property name="text">
       <string>Exporter</string>
      </property>
@@ -409,11 +474,14 @@ color: rgb(216, 216, 216);</string>
     <widget class="QPushButton" name="buyButton">
      <property name="geometry">
       <rect>
-       <x>720</x>
-       <y>630</y>
+       <x>700</x>
+       <y>640</y>
        <width>131</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">
       <string>Acheter</string>
@@ -422,11 +490,15 @@ color: rgb(216, 216, 216);</string>
     <widget class="QLineEdit" name="buyBarreCode">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>630</y>
+       <x>420</x>
+       <y>640</y>
        <width>121</width>
        <height>28</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);
+</string>
      </property>
      <property name="text">
       <string>Code_barre</string>
@@ -435,11 +507,17 @@ color: rgb(216, 216, 216);</string>
     <widget class="QSpinBox" name="buyQuantity">
      <property name="geometry">
       <rect>
-       <x>580</x>
-       <y>630</y>
+       <x>560</x>
+       <y>640</y>
        <width>131</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="maximum">
+      <number>1000000000</number>
      </property>
     </widget>
     <widget class="QComboBox" name="TriSelect">
@@ -450,6 +528,9 @@ color: rgb(216, 216, 216);</string>
        <width>121</width>
        <height>28</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
      </property>
      <item>
       <property name="text">
@@ -467,7 +548,7 @@ color: rgb(216, 216, 216);</string>
       <rect>
        <x>280</x>
        <y>260</y>
-       <width>781</width>
+       <width>461</width>
        <height>291</height>
       </rect>
      </property>
@@ -475,17 +556,63 @@ color: rgb(216, 216, 216);</string>
       <string notr="true">background-color: rgb(51, 153, 119);</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="stat">
+    <widget class="QPushButton" name="btnViewHistory">
      <property name="geometry">
       <rect>
-       <x>950</x>
-       <y>120</y>
-       <width>83</width>
+       <x>760</x>
+       <y>250</y>
+       <width>171</width>
        <height>29</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
      <property name="text">
-      <string>statestiques </string>
+      <string>Voir L'historique </string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEditHistory">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>290</y>
+       <width>301</width>
+       <height>261</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>640</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 700 12pt &quot;Segoe UI&quot;;
+color: rgb(0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>ACHETER</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>10</y>
+       <width>511</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>../../Images/Captures d’écran/Capture d'écran 2024-12-07 205131.png</pixmap>
      </property>
     </widget>
    </widget>
@@ -604,7 +731,7 @@ color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1305</width>
+     <width>1390</width>
      <height>25</height>
     </rect>
    </property>

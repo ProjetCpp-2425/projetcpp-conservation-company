@@ -30,7 +30,11 @@
 #include <QVBoxLayout>
 #include "statestiques.h"
 #include "connection.h"
-
+#include "historymanager.h"
+#include <QFile>
+#include <QMessageBox>
+#include <QTextStream>
+#include <QDir>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -38,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setupTable();
     afficherProduits();
+    connect(ui->btnViewHistory, &QPushButton::clicked, this, &MainWindow::viewHistory);
+
 
         }
 
@@ -72,44 +78,56 @@ void MainWindow::on_on_btnAjouterProduit_clicked_clicked()
     QString nom = ui->lineEdit_nom->text();
     QString code_barres = ui->lineEdit_code->text();
     QString type = ui->lineEdit_type->text();
-    int quantite = ui->lineEdit_quantite->value();
-    QString date_produit = ui->lineEdit_date->date().toString("yyyy-MM-dd");
+    int quantite = ui->lineEdit_quantite->value(); // Assumé comme QSpinBox
+    QString date_produit = ui->lineEdit_date->date().toString("yyyy-MM-dd"); // Assumé comme QDateEdit
 
-    // Validate empty fields
+    // Validation des champs vides
     if (nom.isEmpty() || code_barres.isEmpty() || type.isEmpty()) {
         QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
         return;
     }
 
-    // Check if code_barres already exists
+    // Validation de la quantité
+    if (quantite <= 0) {
+        QMessageBox::warning(this, "Erreur", "La quantité doit être supérieure à 0 !");
+        return;
+    }
+
+    // Vérification du code-barres existant
     QSqlQuery checkQuery;
     checkQuery.prepare("SELECT COUNT(*) FROM produits WHERE code_barres = :code_barres");
     checkQuery.bindValue(":code_barres", code_barres);
 
-    if (checkQuery.exec() && checkQuery.next()) {
-        if (checkQuery.value(0).toInt() > 0) {
-            QMessageBox::warning(this, "Erreur", "Ce code-barres existe déjà !");
-            return;
-        }
+    if (!checkQuery.exec()) {
+        qDebug() << "Erreur lors de la vérification du code-barres :" << checkQuery.lastError().text();
+        QMessageBox::critical(this, "Erreur", "Erreur lors de la vérification du code-barres.");
+        return;
     }
 
+    if (checkQuery.next() && checkQuery.value(0).toInt() > 0) {
+        QMessageBox::warning(this, "Erreur", "Ce code-barres existe déjà !");
+        return;
+    }
+
+    // Création et ajout du produit
     Produit nouveauProduit(nom, code_barres, type, quantite, date_produit);
 
     if (nouveauProduit.ajouter()) {
         QMessageBox::information(this, "Succès", "Produit ajouté avec succès !");
-        // Clear fields
+        // Réinitialisation des champs
         ui->lineEdit_nom->clear();
         ui->lineEdit_code->clear();
         ui->lineEdit_type->clear();
-        ui->lineEdit_quantite->setValue(1);
+        ui->lineEdit_quantite->setValue(1); // Valeur par défaut
         ui->lineEdit_date->setDate(QDate::currentDate());
 
-        // Refresh the table
+        // Rafraîchir la table des produits
         afficherProduits();
     } else {
         QMessageBox::critical(this, "Erreur", "Échec de l'ajout du produit.");
     }
 }
+
 
 void MainWindow::afficherProduits() {
     qDebug() << "Starting afficherProduits()";
@@ -519,6 +537,7 @@ void MainWindow::on_stat_clicked()
 
 
 
+
 MainWindow::~MainWindow()
 {
     // Libérer la mémoire utilisée par l'interface utilisateur
@@ -526,4 +545,209 @@ MainWindow::~MainWindow()
 }
 
 
+void MainWindow::on_update_button_clicked()
+{
+    int oldQuantity = 0;
+    // Récupérer la ligne actuellement sélectionnée
+    QModelIndexList selectedIndexes = ui->tableWidget->selectionModel()->selectedRows();
+
+    if (selectedIndexes.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Veuillez sélectionner un produit à modifier.");
+        return;
+    }
+
+    // Récupérer la première ligne sélectionnée
+    int selectedRow = selectedIndexes.first().row();
+
+    // Récupérer le code-barres actuel à partir de la ligne sélectionnée
+    QString currentCodeBarres = ui->tableWidget->item(selectedRow, 1)->text();
+
+    // Récupérer les valeurs saisies
+    QString nom = ui->lineEdit_nom->text();
+    QString code_barres = ui->lineEdit_code->text();
+    QString type = ui->lineEdit_type->text();
+    int quantite = ui->lineEdit_quantite->value(); // QSpinBox
+    QString date_produit = ui->lineEdit_date->date().toString("yyyy-MM-dd"); // QDateEdit
+
+    // Valider les champs vides
+    if (nom.isEmpty() || code_barres.isEmpty() || type.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Tous les champs doivent être remplis !");
+        return;
+    }
+
+    // Valider la quantité
+    if (quantite <= 0) {
+        QMessageBox::warning(this, "Erreur", "La quantité doit être supérieure à 0 !");
+        return;
+    }
+
+    // Vérifier si le nouveau code-barres existe déjà
+    QSqlQuery checkQuery;
+    checkQuery.prepare("SELECT COUNT(*) FROM produits WHERE code_barres = :new_code_barres AND code_barres <> :current_code_barres");
+    checkQuery.bindValue(":new_code_barres", code_barres);
+    checkQuery.bindValue(":current_code_barres", currentCodeBarres);
+
+    if (!checkQuery.exec()) {
+        qDebug() << "Erreur lors de la vérification du code-barres :" << checkQuery.lastError().text();
+        QMessageBox::critical(this, "Erreur", "Erreur lors de la vérification du code-barres.");
+        return;
+    }
+
+    if (checkQuery.next() && checkQuery.value(0).toInt() > 0) {
+        QMessageBox::warning(this, "Erreur", "Ce code-barres existe déjà !");
+        return;
+    }
+
+    // Prepare the query to get the quantity of the product from the database
+        QSqlQuery query1;
+        query1.prepare("SELECT quantite FROM produits WHERE nom = :nom");
+        query1.bindValue(":nom",nom );
+
+        // Execute the query
+        if (query1.exec()) {
+            // If the query executed successfully, fetch the result
+            if (query1.next()) {
+                oldQuantity = query1.value(0).toInt(); // Retrieve the quantity value
+            } else {
+                qDebug() << "Product not found in database.";
+            }
+        } else {
+            qDebug() << "Query failed: " << query1.lastError();
+        }
+
+    // Préparer la requête de mise à jour
+    QSqlQuery query;
+    query.prepare("UPDATE produits SET "
+                  "nom = :nom, "
+                  "code_barres = :new_code_barres, "
+                  "type = :type, "
+                  "quantite = :quantite, "
+                  "date_produit = TO_DATE(:date_produit, 'YYYY-MM-DD') "
+                  "WHERE code_barres = :current_code_barres");
+
+    query.bindValue(":nom", nom);
+    query.bindValue(":new_code_barres", code_barres);
+    query.bindValue(":type", type);
+    query.bindValue(":quantite", quantite);
+    query.bindValue(":date_produit", date_produit);
+    query.bindValue(":current_code_barres", currentCodeBarres);
+
+    if (query.exec()) {
+        if (query.numRowsAffected() > 0) {
+            QMessageBox::information(this, "Succès", "Produit modifié avec succès !");
+            // Réinitialiser les champs
+            ui->lineEdit_nom->clear();
+            ui->lineEdit_code->clear();
+            ui->lineEdit_type->clear();
+            ui->lineEdit_quantite->setValue(1);
+            ui->lineEdit_date->setDate(QDate::currentDate());
+
+            // Rafraîchir la table
+            afficherProduits();
+        } else {
+            QMessageBox::warning(this, "Erreur", "Aucun produit trouvé avec ce code-barres.");
+        }
+    } else {
+        QMessageBox::critical(this, "Erreur", "Échec de la modification du produit : " + query.lastError().text());
+    }
+    HistoryManager::recordChange(nom,"modified",oldQuantity, quantite);
+}
+void MainWindow::on_tableWidget_cellClicked(int row)
+{
+    // Vérifier que la ligne est valide
+    if (row < 0 || row >= ui->tableWidget->rowCount()) {
+        QMessageBox::warning(this, "Erreur", "Ligne invalide sélectionnée !");
+        return;
+    }
+
+    // Récupérer les données de la ligne
+    QString nom = ui->tableWidget->item(row, 0)->text();
+    QString code_barres = ui->tableWidget->item(row, 1)->text();
+    QString type = ui->tableWidget->item(row, 2)->text();
+    QString quantite = ui->tableWidget->item(row, 3)->text();
+    QString date_str = ui->tableWidget->item(row, 4)->text();
+
+    // Remplir les champs
+    ui->lineEdit_nom->setText(nom);
+    ui->lineEdit_code->setText(code_barres);
+    ui->lineEdit_type->setText(type);
+    ui->lineEdit_quantite->setValue(quantite.toInt());
+
+    // Tentative de conversion de la date
+    QDate date = QDate::fromString(date_str, "yyyy-MM-dd");
+    if (!date.isValid()) {
+        // Si le format "yyyy-MM-dd" échoue, essayons "dd/MM/yyyy"
+        date = QDate::fromString(date_str, "dd/MM/yyyy");
+    }
+    if (!date.isValid()) {
+        QMessageBox::warning(this, "Erreur", "Format de date invalide pour la ligne sélectionnée : " + date_str);
+        return;
+    }
+
+    // Appliquer la date au champ de saisie
+    ui->lineEdit_date->setDate(date);
+}
+
+// Créer un dossier (par exemple "data") dans le répertoire du projet
+void MainWindow::createDirectory()
+{
+    QDir dir;
+    QString path = "data";  // Le nom du dossier que tu veux créer
+
+    // Vérifier si le dossier existe déjà
+    if (!dir.exists(path)) {
+        // Créer le dossier
+        if (dir.mkpath(path)) {
+            QMessageBox::information(this, "Succès", "Le dossier a été créé avec succès.");
+        } else {
+            QMessageBox::critical(this, "Erreur", "Impossible de créer le dossier.");
+        }
+    } else {
+        QMessageBox::information(this, "Info", "Le dossier existe déjà.");
+    }
+}
+
+
+
+void MainWindow::viewHistory()
+{
+    QString dirPath = "";  // Dossier relatif
+    QString filePath = "C:/Users/samaa/OneDrive/Bureau/produits/history.txt";  // Fichier d'historique
+
+    // Afficher le répertoire courant et le chemin complet du fichier
+    qDebug() << "Répertoire courant : " << QDir::currentPath();
+    qDebug() << "Chemin complet du fichier : " << filePath;
+/*
+    // Vérifier si le dossier existe
+    QDir dir;
+    if (!dir.exists(dirPath)) {
+        if (!dir.mkpath(dirPath)) {
+            QMessageBox::critical(this, "Erreur", "Impossible de créer le dossier 'historique'.");
+            return;
+        }
+    }
+*/
+    // Vérifier si le fichier existe
+    if (!QFile::exists(filePath)) {
+        QMessageBox::critical(this, "Erreur", "Le fichier d'historique n'existe pas.");
+        return;
+    }
+
+    // Ouvrir le fichier pour lecture
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Erreur", "Impossible d'ouvrir le fichier d'historique. Vérifie le chemin.");
+        return;
+    }
+
+    // Lire le contenu du fichier
+    QTextStream in(&file);
+    QString historyContent = in.readAll();
+
+    // Afficher le contenu dans le QTextEdit
+    ui->textEditHistory->setText(historyContent);
+
+    // Fermer le fichier
+    file.close();
+}
 

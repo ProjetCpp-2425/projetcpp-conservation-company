@@ -1,15 +1,20 @@
 QT += core gui widgets sql
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 CONFIG += c++11
+RESOURCES +=
+QT += core gui widgets
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+# Vous pouvez faire échouer la compilation si vous utilisez des APIs obsolètes.
+# Pour ce faire, décommentez la ligne suivante.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # désactive toutes les APIs obsolètes avant Qt 6.0.0
+TEMPLATE = app
+TARGET = mon_application
+INCLUDEPATH += .
 
 SOURCES += \
     connection.cpp \
+    historymanager.cpp \
     main.cpp \
     mainwindow.cpp \
     produit.cpp \
@@ -17,14 +22,23 @@ SOURCES += \
 
 HEADERS += \
     connection.h \
+    historymanager.h \
     mainwindow.h \
     produit.h \
     statestiques.h
 
+
 FORMS += \
     mainwindow.ui
 
-# Default rules for deployment.
+TRANSLATIONS += translations/app_fr.ts \
+                translations/app_en.ts
+
+
+
+# Règles par défaut pour le déploiement.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
